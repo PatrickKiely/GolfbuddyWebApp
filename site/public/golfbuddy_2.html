@@ -1,0 +1,415 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Golf Buddy</title> 
+  <meta name="viewport" content="user-scalable=no,initial-scale=1.0,maximum-scale=1.0" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" /> 
+  <meta name="apple-mobile-web-app-status-bar-style" content="Green" /> 
+
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-golfhole.png">
+  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-golfhole.png">
+  <link rel="apple-touch-startup-image" href="apple-touch-icon-golfhole.png" /> 
+ 
+  <link rel="shortcut icon" href="apple-touch-icon-golfhole.png" /> 
+ 
+  <link rel="shortcut icon" sizes="16x16" href="../img/icon-16x16.png">
+  <link rel="shortcut icon" sizes="196x196" href="./img/icon-196x196.png">
+  
+  
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>	
+  <script type="text/javascript"  src="http://maps.google.com/maps/api/js?sensor=false"></script>	
+  
+
+  <link rel="stylesheet" href="css/jquery.mobile.css" />
+  <link rel="stylesheet" href="css/myjquery.mobile.css" />
+  <link rel="stylesheet" href="css/jquery.mobile.structure.css" />
+  <link rel="stylesheet" href="css/ios/style.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/golfbuddy.css" />
+  
+  <!--link rel="stylesheet" href="css/calculator.css" /-->  
+  <link rel="stylesheet" href="css/addtohomescreen.css" />
+
+  <script src="js/phonegap.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery.mobile.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/backbone.js"></script>
+	<!--script src="js/backbone.localStorage.js"></script-->
+  <script src="js/iscroll.js"></script>
+  <script src="js/golfbuddy.js"></script>
+  
+  <script src="js/addtohomescreen.js"></script>  
+  <script src="js/calculator.js"></script>
+  <script src="js/calculator2.js"></script>
+  
+  <script src = "//connect.facebook.net/en_US/sdk/debug.js"></script>
+
+  <script> addToHomescreen();
+  </script>
+
+
+
+</head> 
+<body data-theme="b"> 
+  
+      <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '274884456016623',
+          xfbml      : true,
+          version    : 'v2.0'
+        });
+      };
+	  
+	  FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+		console.log('Logged in.');
+	  }
+	  else {
+		FB.login();
+	  }
+	});
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+	
+	<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=274884456016623&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+<div id="main" data-role="page" data-theme="b" >
+  <div id="headerApp" data-theme="b" data-role="header"  >
+    <h1>Golf Buddy 2</h1>
+	
+  </div>
+
+	<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"> </div>
+
+<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div>	
+	
+  
+  <div id="content_home" data-role="content scroller">
+  <div class="content-area">
+  
+    <br><br>
+
+	
+	
+	<fieldset class="ui-grid-a">
+	<div class="ui-block-a"> <a href="/auth/twitter"  rel="external" data-role="button" 
+	data-iconpos="right" class="social_login twitter_login" >Login</a></div>
+	<div class="ui-block-b"><a href="golfbudd.html/auth/facebook/callback" rel="external" data-role="button" 
+	data-iconpos="right" class="social_login facebook_login">Login</a></div>	   
+	</fieldset>
+
+	<div id="gmap2" style="width:300px;height:330px;"></div>
+
+	
+  </div>
+</div>
+
+
+    <div id="content_course" class="content scroller" >
+     <div id="headerSub" data-role="header" data-theme="b" >
+    <h1>Courses</h1>
+	 <a id="add" data-icon="plus" class="ui-btn-right" data-theme="b">Add</a>
+	 <a id="details"data-icon="plus" class="ui-btn-left" data-theme="b">Edit</a>
+	</div>
+      <div id="course" data-postion="content" class="content-area">
+         <div id="newitem" data-position="content">
+		 
+			<a id="save" data-role="button" data-inline="true" data-icon='check'>Save</a>
+			<a id="cancel" data-role="button" data-inline="true" data-icon='delete'>Cancel</a>
+
+			<br><br>
+		    <label>Course Name:</Label><input type="text" id="newitemtext"/>	<br>
+			<label>Handicap:</label><input type="text" id="handicap"/><br>
+			<label>Score:</label><input type="text" id="score"/><br>
+			<label>Notes:</label><input type="text" id="notes"/><br>
+			<label>Date Played:</label><input type="date" id ="DOP" name="DOP" />
+      
+
+		</div>
+		
+		<div id="showContent">
+		
+		<ul id="list" data-role="listview">
+		<li id="{{-id}}" class="tm">
+			 <div id="rm_{{-id}}" class='delete-item'>Delete</div>
+			 <!--div id="rm_{{-id}}_show" class='show-item'>Details</div-->
+			 <!--span id="text_{{-id}}" class="text" >On {{-DOP}} played {{-text}} with a score of {{-score}} </span-->	
+			 <span id="text_{{-id}}" class="text" >{{-text}} - {{-DOP}} </span>	
+			
+			<div id="content_details"> 
+				<div id="rm_{{-id}}_content_details"> 
+				
+				<a id="noupdate" data-role="button" data-inline="true" data-icon='delete'>Cancel</a>
+					
+				<label>Course Name:</Label><input type="text" id="newitemtext" value="{{-text}}" size="4"/>	
+				<label>Handicap:</label><input type="text" id="handicap" value="{{-handicap}}" size="4"/>
+				<label>Score:</label><input type="text" id="score" value="{{-score}}" size="4"/>
+				<label>Notes:</label><input type="text" id="notes" value="{{-notes}}" size="4"/>
+				<label>Date Played:</label><input type="date" id ="DOP" name="DOP" value="{{-DOP}]" size="4"/>
+				
+				<!--a id="update" data-role="button" data-inline="true" data-icon='check'>Update</a>
+				<a id="noupdate" data-role="button" data-inline="true" data-icon='delete'>Cancel</a-->
+
+				</div>
+				
+			</div>
+			
+			 <!--div id="rm_{{-id}}"" class='show-item'>Details</div-->
+			 <!--a id="details" data-role="button" data-inline="true" data-icon='plus'>Details</a-->
+
+			<!--a id="rm_{{-id}}" class='show-item'   href="#coursedetails"></a-->
+			<!--a id="show-item" class='show-item'   href="#coursedetails"></a-->
+			
+		    </li>
+		</ul>
+		</div>
+    </div>
+  </div>
+   
+    
+
+    <div id="content_fixtures" class="content scroller">
+           <div id="headerSub" data-role="header" data-theme="b" >
+			<h1>Fixtures</h1>
+			</div>
+			<div class="content-area">
+        		<ul id="fixtures" data-role="listview">
+				<li id="{{-id}}" class="tm">
+			 <div id="rm_{{-id}}" class='delete-item'>Delete</div>
+			 <span id="text_{{-id}}" class="text">{{-text}}</span>			
+			
+		    </li>
+		</ul>
+    </div>
+	</div>
+
+	<div id="content_score" class="content scroller">
+		<div id="headerSub" data-role="header" data-theme="b" >
+			<h1>Calc Score</h1>
+		</div>
+	
+		<div id="calculator">
+			<FORM NAME="Calc">
+			<TABLE >
+			<TR>
+			<TD>
+			<INPUT ID="calcbox" TYPE="text"   NAME="Input" Size="15" > 			
+			<INPUT TYPE="button" NAME="clear" VALUE=" c " OnClick="Calc.Input.value = ''">
+			</TD>
+			</TR>
+			</TABLE>
+			
+			<TABLE BORDER=4>			
+			<TR>
+			<TD>
+			<INPUT TYPE="button" NAME="one"   VALUE=" 1 " OnClick="Calc.Input.value += '1'">
+			<INPUT TYPE="button" NAME="two"   VALUE=" 2 " OnCLick="Calc.Input.value += '2'">
+			<INPUT TYPE="button" NAME="three" VALUE=" 3 " OnClick="Calc.Input.value += '3'">
+			<INPUT TYPE="button" NAME="four"  VALUE=" 4 " OnClick="Calc.Input.value += '4'">
+			<INPUT TYPE="button" NAME="plus"  VALUE=" + " OnClick="Calc.Input.value += ' + '">
+			</TD>
+			<TD>
+			<INPUT TYPE="button" NAME="five"  VALUE=" 5 " OnCLick="Calc.Input.value += '5'">
+			<INPUT TYPE="button" NAME="six"   VALUE=" 6 " OnClick="Calc.Input.value += '6'">
+			<INPUT TYPE="button" NAME="seven" VALUE=" 7 " OnClick="Calc.Input.value += '7'">
+			<INPUT TYPE="button" NAME="eight" VALUE=" 8 " OnCLick="Calc.Input.value += '8'">
+			<INPUT TYPE="button" NAME="minus" VALUE=" - " OnClick="Calc.Input.value += ' - '">
+			</TD>
+			<TD>
+			<INPUT TYPE="button" NAME="nine"  VALUE=" 9 " OnClick="Calc.Input.value += '9'">
+			<INPUT TYPE="button" NAME="zero"  VALUE=" 0 " OnClick="Calc.Input.value += '0'">
+			<INPUT TYPE="button" NAME="times" VALUE=" x " OnClick="Calc.Input.value += ' * '">
+			<INPUT TYPE="button" NAME="div"   VALUE=" / " OnClick="Calc.Input.value += ' / '">
+			<INPUT TYPE="button" NAME="DoIt"  VALUE=" = " OnClick="Calc.Input.value = eval(Calc.Input.value)">
+			</TD>
+			</TR>
+			</TABLE>
+			</FORM>
+			
+		</div>
+	</div>
+	
+	<div id="content_more" class="content scroller">
+			<div id="headerSub" data-role="header" data-theme="b" >
+			<h1> </h1>
+			<div class="ui-btn-left">
+				<a id="faqshow"   data-role="button" data-icon="arrow-d">FAQ</a>
+				<a id="aboutshow" data-role="button" data-icon="arrow-d">About</a>
+			</div>
+			<br><br>
+			<div class="ui-btn-right">
+				<a id="contactshow"   data-role="button" data-icon="arrow-d">Contact</a>
+				<a id="mapshow"  data-role="button" data-icon="arrow-d">Map</a>
+			</div>
+  
+			</div>
+
+			<br>
+			
+			<!--a id="mapgeo" href="#geo" data-icon="custom">Map</a></li-->
+			
+			<!--div class="content-area">
+        	<ul id="more" data-role="listview">
+			    <li><a id ="FAQ" href="#FAQpage"  >Frequently Asked Questions</a></li>
+				<li><a id="Contact" href="#Contactpage" data-icon="custom">Contact Us</a></li>
+				<li><a id="About" href="#Aboutpage" data-icon="custom">About Golf Buddy</a></li>
+				<li><a id="Terms" href="#Termspage" data-icon="custom">Terms & Conditions</a></li>
+			</ul>
+					
+			</div-->
+			
+			
+			<div id="faqdown">
+					<br> 
+							<p> FAQ... Ut dignissim nec elit non commodo. Phasellus semper felis sit amet porta accumsan. Proin suscipit sem in mattis eleifend. Phasellus augue lectus, laoreet 
+							a iaculis a, suscipit ac eros. Mauris eleifend vestibulum sem nec viverra.  
+							</p>
+					<br>
+							<p>Integer vel elit mi. Aenean dictum hendrerit dui, nec venenatis neque sollicitudin id. Suspendisse nisl leo, ultrices ut dolor egestas, lobortis vulputate 
+							tortor. Mauris id erat et eros accumsan fringilla nec non mi. Nunc rhoncus, sapien ut pretium tempus.
+							</p>
+			</div>
+					
+			
+			<div id="aboutdown">
+					<br>  
+							<p> ABOUT...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus elit at felis tincidunt, ac bibendum turpis tincidunt. Morbi pellentesque 
+							adipiscing posuere. Quisque vitae magna lobortis, posuere sapien vel, viverra metus. Donec dapibus ultrices libero, at accumsan metus interdum ut. Aliquam erat 
+							volutpat.
+							</p>
+					<br> 		
+							<p>Donec dapibus ultrices libero, at accumsan metus interdum ut. Aliquam erat volutpat. Maecenas nec malesuada eros. Aliquam erat 
+							volutpat.
+							</p>
+
+			</div>
+			
+			<div id="contactdown">
+				
+					<br> 		
+							<p> CONTACT... Donec venenatis arcu eget erat laoreet porttitor. Praesent vel neque lectus. Maecenas lorem magna, gravida convallis eleifend 
+							at, interdum sit amet leo. 	Quisque suscipit ipsum non nisi scelerisque, sed sodales diam egestas. 
+							</p>
+					<br>	
+							<p>Sed dapibus purus nec risus ultricies, sed condimentum urna vehicula. Cras vel suscipit tortor, non sagittis tellus. Curabitur 
+							sagittis tellus libero, quis condimentum metus ultricies eget.
+							</p>
+				
+			</div>
+
+			<div id="mapdown">
+				
+			    <div >
+		        <div id="gmap" ></div>
+				</div>
+				
+
+			</div>			
+	</div>
+
+<!--
+<div id="content_details" class="content scroller">				
+	<div id="main">
+	<br>	
+			<div id="moreContent" data-role="listview">
+				 Golf Course: <span id="text_{{-id}}" class="text">{{-text}}</span><br> <br>
+				 Handicap: <span id="handicap_{{-id}}" class="handicap">{{-handicap_}}</span><br> <br>
+				 Score: <span id="score_{{-id}}" class="score">{{-score}}</span><br><br>
+				 notes: <span id="notes_{{-id}}" class="notes">{{-notes}}</span><br><br>
+				 Date Played: <span id="DOP_{{-id}}" class="DOP">{{-DOP}}</span><br> <br>
+			</div>
+	</div>
+</div>
+-->
+
+	
+  <div id="navBar" data-role="footer" class="ui-bar custom-tabbar" data-position="fixed" data-fullscreen="true" >
+    <div data-role="navbar" class="ui-navbar" data-theme="b">
+      <ul id="tabbar" class="ui-grid custom-tabbar">
+        <li><a id="tab_home"    data-icon="custom">Home</a></li>
+        <li><a id="tab_course"  data-icon="custom">Courses</a></li>
+        <!--li><a id="tab_fixtures"   data-icon="custom">Fixtures</a></li-->
+        <li><a id="tab_score"  data-icon="custom">Score</a></li>
+		<li><a id="tab_more"  data-icon="custom">More</a></li>
+      </ul>
+    </div>
+  </div>
+
+ 
+
+  
+
+  
+</div>
+<!-- end of main page -->
+
+<div id="coursedetails" data-role="page">
+           <div id="headerSub" data-role="header">
+			<h1>Course Details</h1>
+				<a href="#main" id="list" data-role="button" data-inline="true" >Back</a>
+				<a href="#main" id="list" data-role="button" data-inline="false" >Edit</a>
+			</div>
+
+<!--			
+			<ul id="coursedetails" data-role="listview">
+			<li id="{{-id}}" class="tm">
+			 <span id="text_{{-id}}" class="text">{{-text}}</span>			   
+		    </li>
+			</ul>
+			<br><br><br>
+-->			
+			
+			
+	<div id="main">
+	<br>	
+			<div id="moreContent" data-role="listview">
+				 Golf Course: <span id="text_{{-id}}" class="text">{{-text}}</span><br> <br>
+				 Handicap: <span id="handicap_{{-id}}" class="handicap">{{-handicap_}}</span><br> <br>
+				 Score: <span id="score_{{-id}}" class="score">{{-score}}</span><br><br>
+				 notes: <span id="notes_{{-id}}" class="notes">{{-notes}}</span><br><br>
+				 Date Played: <span id="DOP_{{-id}}" class="DOP">{{-DOP}}</span><br> <br>
+		    </div>
+	</div>
+</div>
+
+
+<div data-role="page" id="geo" >
+	        <div id="headerApp" data-role="header" data-position="inline" data-theme="b">
+	     
+	        <h2>Where Am I?</h2>
+	        </div>
+    	
+    	    <div id="location1">
+		        <div id="gmap" ></div>
+	        </div>
+	
+	        <div id="headerApp" data-role="footer" data-position="fixed"  data-id="myfooter"  data-theme="b">
+	        <h1></h1>
+            </div>   
+	    
+</div>
+		 
+		  
+</body>
+</html>
