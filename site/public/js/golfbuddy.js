@@ -868,17 +868,14 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 	    	        var latitude = position.coords.latitude;
 	    	        var longitude = position.coords.longitude;
 	    	        var geolocpoint = new google.maps.LatLng(latitude, longitude);
-	    	      //  this.map.setCenter(geolocpoint, 13);
-				  
-				  
+	  		  
 				  
 	    	      self.map.setCenter(geolocpoint,40);
 				  
 				   console.log("latitude "+latitude)
 					console.log("longitude "+longitude)
 					console.log("geolocpoint "+geolocpoint)	  
-
-					  
+		  
 					  
   })
 	    	  
@@ -930,7 +927,7 @@ app.init_browser = function() {
   //console.log("Browser.Platform.ios " + Browser.Platform.ios + " - " + Browser.Platform.webos + " - " + Browser.Platform.android )
   	//  var output = document.getElementById("output");
 	//	output.innerHTML = "app.scrollheight : " + app.platform + " -  " + app.scrollheight + "  " + self.elem.header.height();
-	  
+	  //not working on iOS 7
   if("ios" == app.platform) {
 	//For iPhone and Andriod To remove Address bar when viewing website on Safari Mobile
 	// When ready...

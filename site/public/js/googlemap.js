@@ -9,15 +9,15 @@ navigator.geolocation.getCurrentPosition(
  
 var locations = [
 ['Royal County Down Golf Club', 54.217580, -5.886059,1],
-['Portmarnock Championship Golf Club', 53.408339, -6.123579,2],
-['Royal Portrush Golf Club', 55.201495, -6.640573,3],
-['Waterville Golf Club',, 51.842787, -10.194938,4],
-['Ballybunion Golf Club', 52.493537, -9.675468,5],
-['Lahinch Golf Club', 52.939894, -9.351835,6],
-['Tralee Golf Club', 52.305539, -9.853928,7],
-['The European Golf Club', 52.856153, -6.066662,8],
-['County Louth Baltray Golf Club', 53.741684, -6.253161,9],
-['Adare Manor Golf Club', 52.565172, -8.781437,10],
+['Portmarnock Championship Golf Club', 53.408339, -6.123579,1],
+['Royal Portrush Golf Club', 55.201495, -6.640573,1],
+['Waterville Golf Club', 51.842787, -10.194938,1],
+['Ballybunion Golf Club', 52.493537, -9.675468,1],
+['Lahinch Golf Club', 52.939894, -9.351835,1],
+['Tralee Golf Club', 52.305539, -9.853928,1],
+['The European Golf Club', 52.856153, -6.066662,1],
+['County Louth Baltray Golf Club', 53.741684, -6.253161,1],
+['Adare Manor Golf Club', 52.565172, -8.781437,1],
 ['My Location', xlatitude, xlongitude, 11],
 ['Williamstown', 52.231737, -7.090113, 12],
 ['Waterford Golf Club', 52.270748, -7.120154, 13],
@@ -52,97 +52,22 @@ var locations = [
     var marker, i;
 
     for (i = 0; i < locations.length; i++) {  
- //     marker = new google.maps.Marker({
-//		icon:"golfclub.png",
- //       position: new google.maps.LatLng(locations[i][1], locations[i][2]),
- //       map: map
- //     });
 	  
-	  switch(i) {
-		case 10:
+	  switch(locations[i][3]) {
+		case 11:
 		   marker = new google.maps.Marker({
 				icon:"img/me.png",
 				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
 				map: map
 			  });
 			break;
-		case (0):
+		case 1:
 		   marker = new google.maps.Marker({
 				icon:"img/golfclub10.png",
 				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
 				map: map
 			  });
 			break;
-		case (1):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;
-		case (2):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;
-		case (3):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;			
-		case (4):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;
-		case (5):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;
-		case (6):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;
-		case (7):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;
-		case (8):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;
-		case (9):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;
-		case (10):
-		   marker = new google.maps.Marker({
-				icon:"img/golfclub10.png",
-				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-				map: map
-			  });
-			break;			
 		default:
 			marker = new google.maps.Marker({
 				icon:"img/golfclub.png",

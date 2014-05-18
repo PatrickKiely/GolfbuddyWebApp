@@ -18,6 +18,7 @@
       // they are logged into this app or not.
       document.getElementById('status').innerHTML = '    ' +
         '';
+		$('#navBar').hide();
     }
   }
 
@@ -74,6 +75,8 @@
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         ' ' + response.name + ' ';
+	$('#navBar').show();
+	
 		
     });
   }

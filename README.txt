@@ -47,10 +47,14 @@ I have chosen to build a mobile web app (The Golfbuddy) to show you closest golf
 immediate vicinity, the current deployed version shows all major golf clubs in the south east as well 
 as the official Irish top 10 as per the golfing digest website.
 
-On inital load an element loats down to ask you to add to home screen, I have created app icons for 
+
+You do not see the navBar to navigate to other tabs in the app unless you log in with facebook, once 
+logged in you have access to the tabs.
+
+On inital load an element floats down to ask you to add to home screen, I have created app icons for 
 both Android and iOS using :
 http://www.gieson.com/Library/projects/utilities/icon_slayer/#.U3ioBfldWSo
-this was a very usful site for resizing and applying shadow etc for professional looking icons.
+this was a very useful site for resizing and applying shadow etc for professional looking icons.
 
 
 On tab 2 As well as directing you to a golf club it also allows you to record the fact you play there, 
@@ -92,18 +96,32 @@ iPhone identification  : @media (device-height : 568px)
    and (device-width : 320px) 
    and (-webkit-min-device-pixel-ratio: 2)
 
+Deployment:
+I deployed on an Amazon Web Services EC2 instance on which i congigured nginx web server and node.js.
+I initially used github as configuration management but also used putty and filezilla to do some maintainence 
+with my ppk key.
+
+Misc:
 An interesting issue was the fact I was displaying show info, hide info and delete icons all on 
 the same place on screen using .show and .hide to swithch elements. On desktop this was fine but 
 on modile device it changed too fast and tapping an icon sometimes caused the next action to happen 
-as well. I solved this by causing the .show to be .show(slow) and it gave time for the tap action to be 'forgotten'.
+as well. I solved this by causing the .show to be .show(slow) and it gave time for the tap action to 
+be 'forgotten'.
 
 
-
+As for the list of golf clubs show, I manually gathered all the lat and long coordinates for the top 10 
+Irish golf clubs as well as the main clubs in the south east region, a long and tedious task and stored 
+these in an array for display.
 
 
 *************************************************************************************************
-*	Issues										*
+*	Issues											*
 *************************************************************************************************
+
+You do not see the navBar to navigate to other tabs in the app unless you log in with facebook, 
+very crude but effective in a blunt force way. If I had more time I would use this to set up sessions 
+and manage the data displayed but currently I was only starting to use this fuctionality.
+
 
 Scrolling does not work on all screens, it works fine on the home screen but other are intermittent.
 

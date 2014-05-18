@@ -63,45 +63,22 @@
 <div id="main" data-role="page" data-theme="b" >
   <div id="header" data-theme="b" data-role="header"  >
     <h1>Golf Buddy 
-	<div id="status2"></div>
-	<!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button-->
+	<div id="statusX"></div>
+	<fb:login-button data-max-rows="1" data-size="small" data-show-faces="false" data-auto-logout-link="true"
+							scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
 	</h1>
 	
   </div>
-  
-  <!--div id="fb-root"></div>
-	<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"> </div>
-	<div class="fb-login-button" data-max-rows="5" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div-->	
-	
+  	
   
   <div id="content_home" data-role="content scroller">
   <div class="content-area">
-<!--
-  
-    <br>
-	<fieldset class="ui-grid-a">
-	<div class="ui-block-a"> <a href="/auth/twitter"  rel="external" data-role="button" 
-	data-iconpos="right" class="social_login twitter_login" >Login</a></div>
-	<div class="ui-block-b"><a href="golfbuddy.html/auth/facebook/callback" rel="external" data-role="button" 
-	data-iconpos="right" class="social_login facebook_login">Login</a></div>	   
-	</fieldset>
--->	
-	<div id="welcome">
+
+  <div id="welcome">
 		<br> 
 			Welcome to The Golf Buddy <div id="status"></div>
 		<br>
 	</div>
-
-	<!--div id="gmap"></div-->
-		
-	<!--div id="output"> </div-->
-	<!--
-
-	<div id="Xmap">
-	<img id="map"  />
-	<p id="msg"></p>	
-	</div>
-	-->
 	
 	<div id="map" "></div>
 	<script src="js/googlemap.js"></script>
@@ -114,7 +91,6 @@
      <div id="headerSub" data-role="header" data-theme="b" >
     <h1>Played</h1>
 	 <a id="add" data-icon="plus" class="ui-btn-right" data-theme="b">Add</a>
-	 <!--a id="details"data-icon="plus" class="ui-btn-left" data-theme="b">Edit</a-->
 	</div>
       <div id="course" data-postion="content" class="content-area">
          <div id="newitem" data-position="content">
@@ -144,8 +120,6 @@
 		
 			<div id="content_details"> 
 				<div id="rm_{{-id}}_content_details" style="display:none"> 
-				
-				<!--a id="noupdate" data-role="button" data-inline="true">Close Section</a-->
 				<br>
 				
 				Course Name:<input type="text" id="newitemtext" value="{{-text}}" size="4"/>	
@@ -176,7 +150,7 @@
 		<br> 
 		<div class="fb-like" data-send="true"> </div>
 		<br> <br>  
-			<fb:login-button data-max-rows="1" data-size="xlarge" data-show-faces="true" data-auto-logout-link="false"
+			<fb:login-button data-max-rows="10" data-size="xlarge" data-show-faces="true" data-auto-logout-link="false"
 							scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>.
 							
 
@@ -186,23 +160,7 @@
 	</div>
 	
 
-    <!--div id="content_friends" class="content scroller">
-           <div id="headerSub" data-role="header" data-theme="b" >
-			<h1>friends</h1>
-			</div>
-			<div class="content-area">
-        		<ul id="friends" data-role="listview">
-				<li id="{{-id}}" class="tm">
-			 <div id="rm_{{-id}}" class='delete-item'>Delete</div>
-			 <span id="text_{{-id}}" class="text">{{-text}}</span>			
-			
-		    </li>
-		</ul>
-    </div>
-	</div-->
 
-	
-	
 	<div id="content_score" class="content scroller" data-tap-toggle="false" >
 		<div id="headerSub" data-role="header" data-theme="b" >
 			<h1>Calc Score</h1>
@@ -260,26 +218,12 @@
 			</div>
 			
 			<div class="ui-btn-right">
-				<!--a id="aboutshow" data-role="button" data-icon="arrow-d">About</a>
-				<!--a id="contactshow"   data-role="button" data-icon="arrow-d">Contact</a-->
 				<a id="mapshow"  data-role="button" data-icon="arrow-d">Map</a>
 			</div>
   
 			</div>
 
 			<br>
-			
-			<!--a id="mapgeo" href="#geo" data-icon="custom">Map</a></li-->
-			
-			<!--div class="content-area">
-        	<ul id="more" data-role="listview">
-			    <li><a id ="FAQ" href="#FAQpage"  >Frequently Asked Questions</a></li>
-				<li><a id="Contact" href="#Contactpage" data-icon="custom">Contact Us</a></li>
-				<li><a id="About" href="#Aboutpage" data-icon="custom">About Golf Buddy</a></li>
-				<li><a id="Terms" href="#Termspage" data-icon="custom">Terms & Conditions</a></li>
-			</ul>
-					
-			</div-->
 			
 			
 			<div id="faqdown">
@@ -330,21 +274,6 @@
 			</div>			
 	</div>
 
-<!--
-<div id="content_details" class="content scroller">				
-	<div id="main">
-	<br>	
-			<div id="moreContent" data-role="listview">
-				 Golf Course: <span id="text_{{-id}}" class="text">{{-text}}</span><br> <br>
-				 Handicap: <span id="handicap_{{-id}}" class="handicap">{{-handicap_}}</span><br> <br>
-				 Score: <span id="score_{{-id}}" class="score">{{-score}}</span><br><br>
-				 notes: <span id="notes_{{-id}}" class="notes">{{-notes}}</span><br><br>
-				 Date Played: <span id="DOP_{{-id}}" class="DOP">{{-DOP}}</span><br> <br>
-			</div>
-	</div>
-</div>
--->
-
 	
   <div id="navBar" data-role="footer" data-tap-toggle="false" class="ui-bar custom-tabbar" data-position="fixed" data-fullscreen="true" >
     <div data-role="navbar" class="ui-navbar" data-theme="b">
@@ -365,7 +294,6 @@
            <div id="headerSub" data-role="header">
 			<h1>Course Details</h1>
 				<a href="#main" id="list" data-role="button" data-inline="true" >Back</a>
-				<!--a href="#main" id="list" data-role="button" data-inline="false" >Edit</a-->
 			</div>
 
 			
@@ -394,30 +322,6 @@
 </div>
 <!-- end of main page -->
 
-<div data-role="page" id="geo" >
-	        <div id="headerApp" data-role="header" data-position="inline" data-theme="b">
-	     
-	        <h2>Where Am I?</h2>
-	        </div>
-    	
-    	    <div id="location1">
-		        <div id="gmap" ></div>
-	        </div>
-	
-	        <div id="headerApp" data-role="footer" data-position="fixed"  data-id="myfooter"  data-theme="b">
-	        <h1></h1>
-            </div>   
-	    
-</div>
-
-<!--div id="welcome">
-<br><br><br><br><br><br><br><br><br>
-		  	    <a id="continue" data-role="button" data-inline="true" data-icon='minus'>Welcome</a>
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
-				
-</div-->
-		 
-		  
+  
 </body>
 </html>
