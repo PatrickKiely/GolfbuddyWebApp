@@ -73,7 +73,7 @@ bb.init = function() {
         if( self.scroller ) {
           self.scroller.refresh()
         } else {
-          self.scroller = new iScroll( $("div[data-role='listview']")[0] )
+          self.scroller = new iScroll( $("div[data-role='content scroller']")[0] )
         }
       },1)
     }}
@@ -468,11 +468,22 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
         console.log(tabname)
         $("#tab_"+tabname).tap(handletab(tabname))
       }
-
+	  
+	  
       app.scrollheight = window.innerHeight - self.elem.header.height() - self.elem.footer.height()
+
+	
       if( 'android' == app.platform ) {
-        app.scrollheight += self.elem.header.height()
+        app.scrollheight += 110 //self.elem.header.height()
+		console.log("app.scrollheight : " + app.scrollheight)
       }
+	  	  
+	  console.log("app.scrollheight : " + app.scrollheight)
+	  
+	  
+	//  var output = document.getElementById("output");
+		//output.innerHTML = "app.scrollheight : " + app.platform + " -  " + app.scrollheight + "  " + self.elem.header.height();
+	  
     },
 
     render: function() {
@@ -504,7 +515,7 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 
       app.view[self.current] && app.view[self.current].render()
 
-	  console.log('Showing self.current : ' + self.current + ' : ' + app.scrollheight)
+	  console.log('Showing self.current : ' + self.current + ' : ' + app.scrollheight + ' / ' + self.scrollers[self.current])
 	  
       var content = $("#content_"+self.current)
       if( !self.scrollers[self.current] ) {
@@ -595,14 +606,32 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 		//$('#rm_' + itemdata.id).slidedown()	
 		},
 		
-		'tap .show-item' : function() {
+		'tap .details' : function() {
 		var self = this
 		_.bindAll(self)
 		var itemdata = self.model.attributes
 		console.log('showing item : ' +'#rm_' + itemdata.id + '_content_details')
-		$('#rm_' + itemdata.id + '_content_details').show()		
+		
+		$('#rm_' + itemdata.id + '_details').hide()
+		$('#rm_' + itemdata.id + '_nodetails').show("slow")	
+		$('#rm_' + itemdata.id + '_delete').hide()
+		$('#rm_' + itemdata.id + '_content_details').show()			
+				
 		},
 
+		'tap .nodetails' : function() {
+		var self = this
+		_.bindAll(self)
+		var itemdata = self.model.attributes
+		console.log('showing item : ' +'#rm_' + itemdata.id + '_content_details')
+		
+		$('#rm_' + itemdata.id + '_nodetails').hide()
+		$('#rm_' + itemdata.id + '_details').show("slow")	
+		$('#rm_' + itemdata.id + '_delete').hide()
+		$('#rm_' + itemdata.id + '_content_details').hide()			
+				
+		},
+		
 		'swiperight .tm' : function() {
 			var self = this
 			_.bindAll(self)
@@ -610,7 +639,11 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 			app.model.items.each(function(item){
 				$('#rm_' + item.attributes.id).hide()
 			})
-			$('#rm_' + itemdata.id + '_delete').show()
+			
+			//$('#rm_' + itemdata.id + '_details').hide()
+			//$('#rm_' + itemdata.id + '_nodetails').hide()	
+		
+			$('#rm_' + itemdata.id + '_delete').show("slow")
 		},
 		/*
 		'swipeleft .tm' : function() {
@@ -632,7 +665,8 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 		console.log('showing item : ' +'#rm_' + itemdata.id + '_content_details')
 		
 		$('#rm_' + itemdata.id + '_delete').hide()
-		$('#rm_' + itemdata.id + '_content_details').show()	
+		//$('#rm_' + itemdata.id + '_details').hide("slow")
+		//$('#rm_' + itemdata.id + '_content_details').show()	
 		
 		},
 		/*
@@ -669,7 +703,7 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 		$('#content_details').slideUp();
 	},
 	
-  }))
+  }),scrollContent)
 
 
   bb.view.friends = Backbone.View.extend({
@@ -684,7 +718,7 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
     
     render: function() {
     }
-  })
+  },scrollContent)
 
   bb.view.score = Backbone.View.extend({
     initialize: function() {
@@ -696,7 +730,7 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
     },
     render: function() {
     }
-  })
+  },scrollContent)
 
   bb.view.more = Backbone.View.extend({
     initialize: function() {
@@ -708,7 +742,7 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
     },
     render: function() {
     }
-  })
+  },scrollContent)
   
   /* new page for details coursedetails = Lists */
  bb.view.coursedetails = Backbone.View.extend(_.extend({    
@@ -806,7 +840,11 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 	 
 	  defaults: { 
 		  			zoom: 15,
+			//		scaleControl: false,
+			//		mapTypeControl: false,
+			//		navigationControl: false,
 		  			mapTypeId: google.maps.MapTypeId.ROADMAP
+					//,icon:icon
 	  			},
   initialize: function() {
 	  var self = this
@@ -823,7 +861,7 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 	    	  this.map = new google.maps.Map(
 	    	            this.el,
 	    	            this.model.toJSON()
-
+				
 	    	        ); 
 	    	
 	      navigator.geolocation.getCurrentPosition(function(position) {
@@ -831,12 +869,19 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 	    	        var longitude = position.coords.longitude;
 	    	        var geolocpoint = new google.maps.LatLng(latitude, longitude);
 	    	      //  this.map.setCenter(geolocpoint, 13);
+				  
+				  
+				  
 	    	      self.map.setCenter(geolocpoint,40);
 				  
 				   console.log("latitude "+latitude)
 					console.log("longitude "+longitude)
-					console.log("geolocpoint "+geolocpoint)
-	    	  })
+					console.log("geolocpoint "+geolocpoint)	  
+
+					  
+					  
+  })
+	    	  
 	    	
 	       this.render();
 	    },
@@ -876,11 +921,28 @@ bb.model.Items = Backbone.Collection.extend(_.extend({
 
 
 app.init_browser = function() {
-  if( browser.android ) {
-    $("#main div[data-role='content']").css({
-      bottom: 0
-    })
-  }
+ // if( browser.android ) {
+ //   $("#main div[data-role='content']").css({
+ //     bottom: 0
+ //   })
+ // }
+  
+  //console.log("Browser.Platform.ios " + Browser.Platform.ios + " - " + Browser.Platform.webos + " - " + Browser.Platform.android )
+  	//  var output = document.getElementById("output");
+	//	output.innerHTML = "app.scrollheight : " + app.platform + " -  " + app.scrollheight + "  " + self.elem.header.height();
+	  
+  if("ios" == app.platform) {
+	//For iPhone and Andriod To remove Address bar when viewing website on Safari Mobile
+	// When ready...
+	window.addEventListener("load",function() {
+	  // Set a timeout...
+	  setTimeout(function(){
+		// Hide the address bar!
+		window.scrollTo(0, 1);
+	  }, 0);
+	});
+}
+
 }
 
 app.boot = function() {
@@ -892,18 +954,27 @@ app.boot = function() {
 
 console.log("Platform : "+app.platform)
 
+
 app.boot_platform = function() {
   if( 'android' == app.platform ) {
-    $('#header').hide()
-    $('#footer').attr({'data-role':'header'})
-    $('#content').css({'margin-top':59})
+  //  $('#header').hide()
+  //  $('#footer').attr({'data-role':'header'})
+  //  $('#content').css({'margin-top':59})
+  console.log("android")
   }
 }
+
 
 app.init_platform = function() {
   if( 'android' == app.platform ) {
     $('li span.ui-icon').css({'margin-top':-4})
+	$('#android').show();
+	
   }
+  
+  setTimeout(function () {   window.scrollTo(0, 1); }, 5000);
+	
+	
 }
 
 app.start = function() {
@@ -919,6 +990,8 @@ app.init = function() {
   console.log('start init')
 
   app.init_platform()
+  
+  app.init_browser()
   
   bb.init()
   
@@ -957,13 +1030,15 @@ app.init = function() {
     app.view.list.render()
     }
   })
-  
+/*  
   app.model.SavedCourse.fetch( {
     success: function() {
       app.model.state.set({items:'loaded'})
       app.view.list.render()
     }
   })
+  */
+  
   app.start()
 
   console.log('end init')
